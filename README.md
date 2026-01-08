@@ -53,6 +53,11 @@ The final result is a stable, production-style ECS service that successfully ser
 
 High-level request flow:
 
+## Architecture
+
+![ECS Terraform Architecture](ecs-terraform-architecture.png)
+
+
 
 ### Core Components
 - VPC with public subnets
