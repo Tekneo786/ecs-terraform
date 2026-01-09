@@ -73,6 +73,14 @@ High-level request flow for the ECS Fargate service provisioned using Terraform.
 
 ---
 
+## Terraform State
+
+Terraform state is currently stored locally for learning purposes.
+In a production environment, this would be stored in a remote backend
+(e.g. S3 with DynamoDB state locking).
+
+---
+
 ## Terraform Resources Used
 
 - `aws_vpc`
@@ -87,6 +95,17 @@ High-level request flow for the ECS Fargate service provisioned using Terraform.
 - `aws_security_group`
 
 Resources are organised across multiple `.tf` files for clarity and maintainability.
+
+---
+
+## Repository Structure
+
+This project is organised by responsibility:
+
+- `infra/` – Terraform infrastructure for AWS ECS Fargate, ALB, VPC, IAM, and security groups
+- `app/` – Application source code and Docker configuration
+- `.github/workflows/` – CI/CD pipelines using GitHub Actions
+- `images/` – Architecture diagrams and screenshots
 
 ---
 
