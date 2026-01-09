@@ -53,7 +53,7 @@ The final result is a stable, production-style ECS service that successfully ser
 
 High-level request flow for the ECS Fargate service provisioned using Terraform.
 
-![ECS Terraform Architecture](./ecs-terraform-architecture.png)
+![ECS Terraform Architecture](./ecs-terraform-diagram-v2.png)
 
 
 
@@ -153,17 +153,3 @@ These fixes reflect common troubleshooting steps used in real production environ
 terraform init
 terraform plan
 terraform apply
-
-## Screenshots
-
-### ECS Service Running
-![ECS Service Running](./screenshots/ecs.png)
-
-### Target Group Health
-![Target Group Healthy](./screenshots/targetgroup.png)
-
-### Application Load Balancer Listener
-![ALB Listener](./screenshots/listener.png)
-
-### End-to-End Request
-![NGINX Response](./screenshots/nginx.png)
