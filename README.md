@@ -19,7 +19,7 @@ The final result is a stable, production-style ECS service that successfully ser
 
 ---
 
-## Key Features ⭐
+## Key Features 
 
 ### Infrastructure as Code (IaC)
 - Entire AWS stack provisioned using **Terraform**
@@ -51,27 +51,57 @@ The final result is a stable, production-style ECS service that successfully ser
 
 ## Architecture
 
+High-level request flow for the ECS Fargate service provisioned using Terraform.
 
 ![ECS Fargate Architecture](./docs/ecs-fargate-arch.png)
 
+### Request Flow
+1. Users send HTTP requests to a public Application Load Balancer (ALB)
+2. The ALB forwards traffic to an IP-based target group
+3. Traffic is distributed across ECS tasks running on AWS Fargate
+4. ECS tasks run across multiple Availability Zones for resilience
 
+### Security Model
+- ALB security group allows inbound HTTP traffic from the internet
+- ECS task security group only allows inbound traffic from the ALB
+- No direct public access to containers
+- All resources are deployed within a single VPC
 
-
-
-
-
-
+### High Availability
+- ALB spans multiple Availability Zones
+- ECS service maintains desired task count
+- Failed tasks are automatically replaced
 
 
 
 ### Core Components
 - VPC with public subnets
 - Application Load Balancer
-- Target Group (IP-based)
-- ECS Cluster and Service
-- ECS Task Definition (nginx)
+- IP-based Target Group
+- ECS Cluster and ECS Service
+- ECS Task Definition (Dockerised Flask application)
+- Amazon ECR for container images
 - IAM Execution Role
 - Security Groups
+
+---
+
+## CI/CD Pipeline
+
+This project includes a fully automated CI/CD pipeline implemented using GitHub Actions.
+
+### Pipeline Capabilities
+- Automatically builds Docker images on every push to `main`
+- Pushes images to Amazon ECR
+- Runs Terraform init and plan in CI
+- Uses GitHub Secrets for secure AWS authentication
+- No credentials are stored in the repository
+
+### Why This Matters
+- Infrastructure changes are validated automatically
+- Application builds are reproducible
+- Reduces manual deployment risk
+- Reflects real-world DevOps workflows
 
 ---
 
@@ -102,12 +132,12 @@ Resources are organised across multiple `.tf` files for clarity and maintainabil
 
 ## Repository Structure
 
-This project is organised by responsibility:
+The project is organised by responsibility to clearly separate
+infrastructure, application code, CI/CD, and documentation.
 
-- `infra/` – Terraform infrastructure for AWS ECS Fargate, ALB, VPC, IAM, and security groups
-- `app/` – Application source code and Docker configuration
-- `.github/workflows/` – CI/CD pipelines using GitHub Actions
-- `images/` – Architecture diagrams and screenshots
+
+![Repository Structure](./docs/repo-structure.png)
+
 
 ---
 
@@ -148,23 +178,13 @@ These fixes reflect common troubleshooting steps used in real production environ
 
 ## Improvements & Next Steps 🚀
 
-### Security
-- Move ECS tasks into **private subnets**
-- Add a **NAT Gateway** for controlled outbound access
-- Use **AWS Secrets Manager** for sensitive configuration
-
 ### HTTPS
-- Add **ACM certificates**
+- Add ACM certificates
 - Enable HTTPS listener on port 443
 - Redirect HTTP → HTTPS
 
-### CI/CD
-- Build and push container images automatically
-- Deploy via **GitHub Actions** or **AWS CodePipeline**
+(This will be added as a follow-up once a domain is available.)
 
-### Scalability
-- ECS Service Auto Scaling
-- CPU and memory-based scaling policies
 
 ---
 
