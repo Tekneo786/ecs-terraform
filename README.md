@@ -51,9 +51,9 @@ The final result is a stable, production-style ECS service that successfully ser
 
 ## Architecture
 
-High-level request flow for the ECS Fargate service provisioned using Terraform.
 
-![ECS Terraform Architecture](/images/ecs-terraform-architecture.png)
+![ECS Fargate Architecture](./docs/ecs-fargate-arch.png)
+
 
 
 
